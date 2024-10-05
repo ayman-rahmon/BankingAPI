@@ -27,7 +27,7 @@ public class ClientRepository : IClientRepository
     {
         IQueryable<Client> query = _context.Clients;
 
-        // Filtering Logic
+        // Filtering Logic...
         if (!string.IsNullOrEmpty(filterBy) && !string.IsNullOrEmpty(searchValue))
         {
             switch (filterBy.ToLower())
@@ -43,11 +43,11 @@ public class ClientRepository : IClientRepository
                     break;
             }
 
-            // Persist the filtering and pagination parameters for suggestions
-            await SaveSearchParametersAsync(filterBy, searchValue, pageIndex, pageSize);
+            // Save filtering parameters for search suggestions separately...
+            await SaveSearchFilterParametersAsync(filterBy, searchValue);
         }
 
-        // Sorting Logic
+        // Sorting Logic...
         if (!string.IsNullOrEmpty(sortBy))
         {
             query = sortBy.ToLower() switch
@@ -55,24 +55,27 @@ public class ClientRepository : IClientRepository
                 "firstname" => query.OrderBy(c => c.FirstName),
                 "lastname" => query.OrderBy(c => c.LastName),
                 "email" => query.OrderBy(c => c.Email),
-                _ => query // Default case, no sorting
+                _ => query // Default case, no sorting...
             };
         }
 
-        // Pagination Logic
+        // Save pagination parameters separately...
+        await SavePaginationParametersAsync(pageIndex, pageSize);
+
+        // Apply pagination and return results...
         return await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task AddClientAsync(Client client)
     {
-        // just adding the record as it is ... and updating the flushing the changes to DB...
+        // Adding the client entity to the context and saving it to the database...
         await _context.Clients.AddAsync(client);
         await _context.SaveChangesAsync();
     }
 
     public async Task<List<string>> GetLastThreeSearchesAsync()
     {
-        // checking the already cached last 3 searches from the distributed cache syste (here using Redis)...
+        // Fetching the last three search parameters from Redis cache for suggestions...
         var cachedSearches = await _cache.GetStringAsync("searchParams");
         return cachedSearches != null
             ? JsonConvert.DeserializeObject<List<string>>(cachedSearches).Take(3).ToList()
@@ -81,6 +84,10 @@ public class ClientRepository : IClientRepository
 
     public async Task<(int pageIndex, int pageSize)> GetLastPaginationParametersAsync()
     {
+<<<<<<< HEAD
+=======
+        // Fetching the last used pagination parameters from Redis cache...
+>>>>>>> development
         var cachedPagination = await _cache.GetStringAsync("paginationParams");
         if (cachedPagination != null)
         {
@@ -89,25 +96,46 @@ public class ClientRepository : IClientRepository
             );
             return (paginationParams["pageIndex"], paginationParams["pageSize"]);
         }
+<<<<<<< HEAD
         return (1, 10); // Default pagination parameters if not set
     }
 
     private async Task SaveSearchFilterParametersAsync(string filterBy, string searchValue)
     {
+=======
+        return (1, 10); // Default pagination parameters if none are set in cache...
+    }
+
+    public async Task SaveSearchFilterParametersAsync(string filterBy, string searchValue)
+    {
+        // Construct the filtering parameters and store the last three entries in cache...
+>>>>>>> development
         var currentSearches = await GetLastThreeSearchesAsync();
         var searchParams = $"filterBy:{filterBy}|searchValue:{searchValue}";
 
         if (currentSearches.Count >= 3)
         {
+<<<<<<< HEAD
             currentSearches.RemoveAt(0);
         }
 
         currentSearches.Add(searchParams);
+=======
+            currentSearches.RemoveAt(0); // Remove the oldest search if limit is reached...
+        }
+
+        currentSearches.Add(searchParams);
+
+>>>>>>> development
         await _cache.SetStringAsync("searchParams", JsonConvert.SerializeObject(currentSearches));
     }
 
     private async Task SavePaginationParametersAsync(int pageIndex, int pageSize)
     {
+<<<<<<< HEAD
+=======
+        // Saving pagination settings to the cache...
+>>>>>>> development
         var paginationParams = new Dictionary<string, int>
         {
             { "pageIndex", pageIndex },
@@ -119,23 +147,25 @@ public class ClientRepository : IClientRepository
         );
     }
 
+<<<<<<< HEAD
     public async Task SaveSearchParametersAsync(
+=======
+    public async Task SaveSearchParametersAndPaginationAsync(
+>>>>>>> development
         string filterBy,
         string searchValue,
         int pageIndex,
         int pageSize
     )
     {
+        // Storing combined filtering and pagination parameters in cache as a single entry...
         var currentSearches = await GetLastThreeSearchesAsync();
-
-        // Construct a full search string that includes all parameters...
         var searchParams =
             $"filterBy:{filterBy}|searchValue:{searchValue}|pageIndex:{pageIndex}|pageSize:{pageSize}";
 
-        // Maintain only the last 3 search parameters...
         if (currentSearches.Count >= 3)
         {
-            currentSearches.RemoveAt(0);
+            currentSearches.RemoveAt(0); // Maintain only the last three entries...
         }
 
         currentSearches.Add(searchParams);
