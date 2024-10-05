@@ -33,6 +33,7 @@ namespace BankingAPI.Models
         public string Sex { get; set; }
 
         [Required]
+        [MinAccountCount(1, ErrorMessage = "At least one account is required.")]
         public Address Address { get; set; }
         public ICollection<Account> Accounts { get; set; }
     }
