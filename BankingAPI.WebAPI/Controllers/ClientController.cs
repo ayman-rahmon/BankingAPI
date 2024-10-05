@@ -18,9 +18,21 @@ public class ClientController : Controller
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> GetClients(int pageIndex = 1, int pageSize = 10)
+    public async Task<IActionResult> GetClients(
+        int pageIndex = 1,
+        int pageSize = 10,
+        string? filterBy = null,
+        string? sortBy = null,
+        string? searchValue = null
+    )
     {
-        var clients = await _unitOfWork.Clients.GetClientsAsync(pageIndex, pageSize);
+        var clients = await _unitOfWork.Clients.GetClientsAsync(
+            pageIndex,
+            pageSize,
+            filterBy,
+            sortBy,
+            searchValue
+        );
         return Ok(clients);
     }
 

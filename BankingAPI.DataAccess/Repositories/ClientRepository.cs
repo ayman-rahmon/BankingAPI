@@ -17,10 +17,50 @@ public class ClientRepository : IClientRepository
         this._cache = cache;
     }
 
-    public async Task<IEnumerable<Client>> GetClientsAsync(int pageIndex, int pageSize)
+    public async Task<IEnumerable<Client>> GetClientsAsync(
+        int pageIndex,
+        int pageSize,
+        string? filterBy = null,
+        string? sortBy = null,
+        string? searchValue = null
+    )
     {
-        // getting the Clients in pages ... the skip will allow me to skip a number of rows calculated by the (pageIndex - 1 ) * pageSize , take will allow me to take only the amount of records i want (pageSize)...
-        return await _context.Clients.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+        IQueryable<Client> query = _context.Clients;
+
+        // Filtering Logic
+        if (!string.IsNullOrEmpty(filterBy) && !string.IsNullOrEmpty(searchValue))
+        {
+            switch (filterBy.ToLower())
+            {
+                case "firstname":
+                    query = query.Where(c => c.FirstName.Contains(searchValue));
+                    break;
+                case "lastname":
+                    query = query.Where(c => c.LastName.Contains(searchValue));
+                    break;
+                case "email":
+                    query = query.Where(c => c.Email.Contains(searchValue));
+                    break;
+            }
+
+            // Persist the filtering and pagination parameters for suggestions
+            await SaveSearchParametersAsync(filterBy, searchValue, pageIndex, pageSize);
+        }
+
+        // Sorting Logic
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            query = sortBy.ToLower() switch
+            {
+                "firstname" => query.OrderBy(c => c.FirstName),
+                "lastname" => query.OrderBy(c => c.LastName),
+                "email" => query.OrderBy(c => c.Email),
+                _ => query // Default case, no sorting
+            };
+        }
+
+        // Pagination Logic
+        return await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task AddClientAsync(Client client)
@@ -39,10 +79,20 @@ public class ClientRepository : IClientRepository
             : new List<string>();
     }
 
-    public async Task SaveSearchParametersAsync(string searchParams)
+    public async Task SaveSearchParametersAsync(
+        string filterBy,
+        string searchValue,
+        int pageIndex,
+        int pageSize
+    )
     {
-        // updating the current cached Searches by adding a new one to the list while removing the oldest search term in case we hit the capacity (3 search terms)...
         var currentSearches = await GetLastThreeSearchesAsync();
+
+        // Construct a full search string that includes all parameters...
+        var searchParams =
+            $"filterBy:{filterBy}|searchValue:{searchValue}|pageIndex:{pageIndex}|pageSize:{pageSize}";
+
+        // Maintain only the last 3 search parameters...
         if (currentSearches.Count >= 3)
         {
             currentSearches.RemoveAt(0);
