@@ -1,60 +1,31 @@
-# .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
-*.vspscc
+
+
+# Ignore all user-specific files and IDE configuration files
 .vscode/
-.vscode/*
-
-# Ignore build results
-bin/
-obj/
-
-# User-specific files
-*.user
+.idea/
 *.suo
+*.user
 *.userosscache
 *.sln.docstates
 
-# Auto-generated files
-*.Generated.cs
-*.designer.cs
-*.g.cs
-*.g.i.cs
-*_i.c
+# Ignore build directories and files generated in sub-projects
+BankingAPI.DataAccess/bin/
+BankingAPI.DataAccess/obj/
+BankingAPI.Models/bin/
+BankingAPI.Models/obj/
+BankingAPI.WebAPI/bin/
+BankingAPI.WebAPI/obj/
 
-# Entity Framework Migrations
-Migrations/
+# Ignore ASP.NET Core environment settings files
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+secrets.json
 
-# Rider specific
+# Ignore Rider-specific files and folders
 .idea/
 *.sln.iml
-.idea/*
 
-# Visual Studio Code
-.vscode/*
+# macOS system files
+.DS_Store
 
-# Visual Studio
-.vs/
-*.dbmdl
-*.opendb
-
-# Log files
-*.log
-
-# Uncomment if needed for Windows OS-specific files
-# Thumbs.db
-# ehthumbs.db
-# Desktop.ini
-# $RECYCLE.BIN/
-
-# Uncomment if needed for MacOS
-# .DS_Store
-# .AppleDouble
-# .LSOverride
-
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-BankingAPI.Models/obj/
