@@ -8,9 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// set up the connection with the database... and make the context ready to use for dependancy injection...
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+// setting up the Redis Connection, and making it ready for dependancy injection...
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration["RedisCache:ConnectionString"];
+});
 
 var app = builder.Build();
 
