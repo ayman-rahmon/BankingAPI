@@ -24,10 +24,13 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration["RedisCache:ConnectionString"];
 });
 
+// setting up UnitOfWork for dependancy injection...
+
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 // seetting up authentication middleware... (using JWT Token Bearer )
-
 var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtSettings:Secret"]);
-
 builder
     .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
