@@ -1,0 +1,11 @@
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/bin/Debug/net8.0/BankingAPI.Models.deps.json
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/bin/Debug/net8.0/BankingAPI.Models.dll
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/bin/Debug/net8.0/BankingAPI.Models.pdb
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.GeneratedMSBuildEditorConfig.editorconfig
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.AssemblyInfoInputs.cache
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.AssemblyInfo.cs
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.csproj.CoreCompileInputs.cache
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.dll
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/refint/BankingAPI.Models.dll
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.pdb
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/ref/BankingAPI.Models.dll
