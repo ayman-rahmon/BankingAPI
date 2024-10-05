@@ -84,10 +84,7 @@ public class ClientRepository : IClientRepository
 
     public async Task<(int pageIndex, int pageSize)> GetLastPaginationParametersAsync()
     {
-<<<<<<< HEAD
-=======
         // Fetching the last used pagination parameters from Redis cache...
->>>>>>> development
         var cachedPagination = await _cache.GetStringAsync("paginationParams");
         if (cachedPagination != null)
         {
@@ -96,46 +93,28 @@ public class ClientRepository : IClientRepository
             );
             return (paginationParams["pageIndex"], paginationParams["pageSize"]);
         }
-<<<<<<< HEAD
-        return (1, 10); // Default pagination parameters if not set
-    }
-
-    private async Task SaveSearchFilterParametersAsync(string filterBy, string searchValue)
-    {
-=======
         return (1, 10); // Default pagination parameters if none are set in cache...
     }
 
     public async Task SaveSearchFilterParametersAsync(string filterBy, string searchValue)
     {
         // Construct the filtering parameters and store the last three entries in cache...
->>>>>>> development
         var currentSearches = await GetLastThreeSearchesAsync();
         var searchParams = $"filterBy:{filterBy}|searchValue:{searchValue}";
 
         if (currentSearches.Count >= 3)
         {
-<<<<<<< HEAD
-            currentSearches.RemoveAt(0);
-        }
-
-        currentSearches.Add(searchParams);
-=======
             currentSearches.RemoveAt(0); // Remove the oldest search if limit is reached...
         }
 
         currentSearches.Add(searchParams);
 
->>>>>>> development
         await _cache.SetStringAsync("searchParams", JsonConvert.SerializeObject(currentSearches));
     }
 
     private async Task SavePaginationParametersAsync(int pageIndex, int pageSize)
     {
-<<<<<<< HEAD
-=======
         // Saving pagination settings to the cache...
->>>>>>> development
         var paginationParams = new Dictionary<string, int>
         {
             { "pageIndex", pageIndex },
@@ -147,11 +126,7 @@ public class ClientRepository : IClientRepository
         );
     }
 
-<<<<<<< HEAD
-    public async Task SaveSearchParametersAsync(
-=======
     public async Task SaveSearchParametersAndPaginationAsync(
->>>>>>> development
         string filterBy,
         string searchValue,
         int pageIndex,
