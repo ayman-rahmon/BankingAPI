@@ -10,3 +10,4 @@
 /home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/refint/BankingAPI.Models.dll
 /home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.pdb
 /home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/ref/BankingAPI.Models.dll
+/home/tatsujin/projects/BankingAPI/BankingAPI.Models/obj/Debug/net8.0/BankingAPI.Models.csproj.AssemblyReference.cache

@@ -1,11 +1,47 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "libphonenumber-csharp/8.13.47": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/PhoneNumbers.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/PhoneNumbers.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "libphonenumber-csharp/8.13.47": {
+      "sha512": "uRxptsFYOVOALVLmGKR7aRnfLqL7MIizydCpDYyKckXa5VVhNfBi1lzV+9JBbviTpU9agZIihNZp8Le7ND3ynQ==",
+      "type": "package",
+      "path": "libphonenumber-csharp/8.13.47",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net6.0/PhoneNumbers.dll",
+        "lib/net6.0/PhoneNumbers.xml",
+        "lib/net8.0/PhoneNumbers.dll",
+        "lib/net8.0/PhoneNumbers.xml",
+        "lib/netstandard2.0/PhoneNumbers.dll",
+        "lib/netstandard2.0/PhoneNumbers.xml",
+        "libphonenumber-csharp.8.13.47.nupkg.sha512",
+        "libphonenumber-csharp.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "libphonenumber-csharp >= 8.13.47"
+    ]
   },
   "packageFolders": {
     "/home/tatsujin/.nuget/packages/": {}
@@ -43,6 +79,12 @@
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
+        "dependencies": {
+          "libphonenumber-csharp": {
+            "target": "Package",
+            "version": "[8.13.47, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
