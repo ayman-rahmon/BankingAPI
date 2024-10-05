@@ -79,6 +79,46 @@ public class ClientRepository : IClientRepository
             : new List<string>();
     }
 
+    public async Task<(int pageIndex, int pageSize)> GetLastPaginationParametersAsync()
+    {
+        var cachedPagination = await _cache.GetStringAsync("paginationParams");
+        if (cachedPagination != null)
+        {
+            var paginationParams = JsonConvert.DeserializeObject<Dictionary<string, int>>(
+                cachedPagination
+            );
+            return (paginationParams["pageIndex"], paginationParams["pageSize"]);
+        }
+        return (1, 10); // Default pagination parameters if not set
+    }
+
+    private async Task SaveSearchFilterParametersAsync(string filterBy, string searchValue)
+    {
+        var currentSearches = await GetLastThreeSearchesAsync();
+        var searchParams = $"filterBy:{filterBy}|searchValue:{searchValue}";
+
+        if (currentSearches.Count >= 3)
+        {
+            currentSearches.RemoveAt(0);
+        }
+
+        currentSearches.Add(searchParams);
+        await _cache.SetStringAsync("searchParams", JsonConvert.SerializeObject(currentSearches));
+    }
+
+    private async Task SavePaginationParametersAsync(int pageIndex, int pageSize)
+    {
+        var paginationParams = new Dictionary<string, int>
+        {
+            { "pageIndex", pageIndex },
+            { "pageSize", pageSize }
+        };
+        await _cache.SetStringAsync(
+            "paginationParams",
+            JsonConvert.SerializeObject(paginationParams)
+        );
+    }
+
     public async Task SaveSearchParametersAsync(
         string filterBy,
         string searchValue,
