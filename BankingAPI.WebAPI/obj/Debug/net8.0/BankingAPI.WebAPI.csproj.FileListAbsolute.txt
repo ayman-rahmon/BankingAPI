@@ -73,3 +73,4 @@
 /home/tatsujin/projects/BankingAPI/BankingAPI.WebAPI/obj/Debug/net8.0/BankingAPI.WebAPI.pdb
 /home/tatsujin/projects/BankingAPI/BankingAPI.WebAPI/obj/Debug/net8.0/BankingAPI.WebAPI.genruntimeconfig.cache
 /home/tatsujin/projects/BankingAPI/BankingAPI.WebAPI/obj/Debug/net8.0/ref/BankingAPI.WebAPI.dll
+/home/tatsujin/projects/BankingAPI/BankingAPI.WebAPI/obj/Debug/net8.0/BankingAPI.WebAPI.sourcelink.json

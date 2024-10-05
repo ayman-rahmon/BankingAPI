@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XMXx2ic+EKB3P3hR+9zHNvAGtLRtZk/I6OAnX9JR6DR08W/toh11MQ/fbltHW51Ia3vWMwM6wflGzuKUh/NJsA==",
+  "dgSpecHash": "fld9V0jdBTiOK8TRlKix7z4ZPvq2How4HpOz6AcBXWHEwGYZw+Fg5F7Mo2TFvki/si5/6TgQWs0DdbI6PsqjMg==",
   "success": true,
   "projectFilePath": "/home/tatsujin/projects/BankingAPI/BankingAPI.WebAPI/BankingAPI.WebAPI.csproj",
   "expectedPackageFiles": [
