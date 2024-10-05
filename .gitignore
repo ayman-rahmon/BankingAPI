@@ -1,0 +1,59 @@
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.vspscc
+.vscode/
+.vscode/*
+
+# Ignore build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.Generated.cs
+*.designer.cs
+*.g.cs
+*.g.i.cs
+*_i.c
+
+# Entity Framework Migrations
+Migrations/
+
+# Rider specific
+.idea/
+*.sln.iml
+.idea/*
+
+# Visual Studio Code
+.vscode/*
+
+# Visual Studio
+.vs/
+*.dbmdl
+*.opendb
+
+# Log files
+*.log
+
+# Uncomment if needed for Windows OS-specific files
+# Thumbs.db
+# ehthumbs.db
+# Desktop.ini
+# $RECYCLE.BIN/
+
+# Uncomment if needed for MacOS
+# .DS_Store
+# .AppleDouble
+# .LSOverride
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
