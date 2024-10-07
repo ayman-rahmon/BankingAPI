@@ -24,7 +24,7 @@ public class AuthController : Controller
         this._configuration = configuration;
     }
 
-    [Route("register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(UserRegisterDto dto)
     {
         // check if user already exists...
@@ -45,7 +45,7 @@ public class AuthController : Controller
         return Ok("User registered successfully.");
     }
 
-    [Route("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(UserLoginDto dto)
     {
         var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == dto.Email);

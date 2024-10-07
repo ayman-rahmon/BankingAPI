@@ -23,7 +23,7 @@ namespace BankingAPI.Models
         [StringLength(11)]
         public string PersonalId { get; set; }
 
-        public string ProfilePhoto { get; set; }
+        public string? ProfilePhoto { get; set; }
 
         [Required]
         [PhoneNumber("SA")]
@@ -33,8 +33,9 @@ namespace BankingAPI.Models
         public string Sex { get; set; }
 
         [Required]
-        [MinAccountCount(1, ErrorMessage = "At least one account is required.")]
         public Address Address { get; set; }
+
+        [MinAccountCount(1, ErrorMessage = "At least one account is required.")]
         public ICollection<Account> Accounts { get; set; }
     }
 
